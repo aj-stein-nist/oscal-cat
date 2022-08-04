@@ -1,6 +1,7 @@
 name: OSCAL CAT CI
 env:
-  DEPLOY_BASE_HREF: "/demos/cat/"
+  DEPLOY_URL: "/oscal-tools/demos/cat/"
+  BASE_HREF: "./"
   MAIN_REPO_CHECKOUT_PATH: main
 on:
   pull_request:
@@ -14,17 +15,11 @@ on:
     - develop
     - "release-*"
   workflow_call:
-    outputs:
-      commit_id:
-        description: "The git commit ID (SHA1) used to form the cache key for the bundled app build"
-        value: ${{ jobs.build-test-app.commit_id }}
   workflow_dispatch:
 jobs:
   build-test-app:
     name: Deploy Demo Site
     runs-on: ubuntu-20.04
-    outputs:
-      commit_id: ${{ steps.store-commit-metadata.id }}
     steps:
     - name: Checkout App Repo
       uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
@@ -32,6 +27,11 @@ jobs:
         path: ${{ github.workspace }}/${{ env.MAIN_REPO_CHECKOUT_PATH }}
         fetch-depth: 0
       id: checkout-main-repo
+    - name: Store git commit ID for cache key
+      run: |
+        echo "::set-output name=commit_id::$(git rev-parse HEAD)"
+      working-directory: ${{ env.MAIN_REPO_CHECKOUT_PATH }}
+      id: store-git-metadata
     - name: Set up NodeJS
       uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93
       with:
@@ -39,24 +39,18 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '${{ env.MAIN_REPO_CHECKOUT_PATH }}/OSCAL-CAT-App/package-lock.json'
       id: setup
-    - name: Store git commit ID for cache key
-      run: |
-        pushd "${MAIN_REPO_CHECKOUT_PATH}/OSCAL-CAT-App"
-        echo "::set-output name=id::$(git rev-parse HEAD)"
-        popd
-      id: store-commit-metadata
     - name: Build
       run: |
         cd "${MAIN_REPO_CHECKOUT_PATH}/OSCAL-CAT-App"
-        npm ci --loglevel verbose
+        npm ci
         echo "$PWD/node_modules/.bin/" >> $GITHUB_PATH
         npm run build -- \
-          --base-href $DEPLOY_BASE_HREF \
-          --deploy-url $DEPLOY_BASE_HREF
+          --base-href $BASE_HREF \
+          --deploy-url $DEPLOY_URL
       id: build
     - name: Store Build Cache
       uses: actions/cache@0865c47f36e68161719c5b124609996bb5c40129
       with:
-        path: ${{ github.workspace }}/${{ env.MAIN_REPO_CHECKOUT_PATH }}//OSCAL-CAT-App/www
-        key: cat-${{ runner.os }}-${{ steps.store-commit-metadata.outputs.id }}
+        path: ${{ github.workspace }}/${{ env.MAIN_REPO_CHECKOUT_PATH }}/OSCAL-CAT-App/www
+        key: cat-${{ runner.os }}-${{ steps.store-git-metadata.outputs.commit_id }}
       id: store-cache-build
