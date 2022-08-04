@@ -1,6 +1,7 @@
 name: OSCAL CAT CI
 env:
-  DEPLOY_BASE_HREF: "/demos/cat/"
+  DEPLOY_URL: "/oscal-tools/demos/cat/"
+  BASE_HREF: "./"
   MAIN_REPO_CHECKOUT_PATH: main
 on:
   pull_request:
@@ -51,8 +52,8 @@ jobs:
         npm ci --loglevel verbose
         echo "$PWD/node_modules/.bin/" >> $GITHUB_PATH
         npm run build -- \
-          --base-href $DEPLOY_BASE_HREF \
-          --deploy-url $DEPLOY_BASE_HREF
+          --base-href $BASE_HREF \
+          --deploy-url $DEPLOY_URL
       id: build
     - name: Store Build Cache
       uses: actions/cache@0865c47f36e68161719c5b124609996bb5c40129
