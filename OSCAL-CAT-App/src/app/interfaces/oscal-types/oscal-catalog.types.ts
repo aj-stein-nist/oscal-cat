@@ -8,12 +8,12 @@
 // match the expected interface, even if the JSON is valid.
 
 export interface Result {
-    catalog?: Catalog;
-    profile?: Profile;
-    componentDefinition?: ComponentDefinition;
-    systemSecurityPlan?: SystemSecurityPlanSSP;
-    assessmentPlan?: SecurityAssessmentPlanSAP;
-    assessmentResults?: SecurityAssessmentResultsSAR;
+    catalog?:                   Catalog;
+    profile?:                   Profile;
+    componentDefinition?:       ComponentDefinition;
+    systemSecurityPlan?:        SystemSecurityPlanSSP;
+    assessmentPlan?:            SecurityAssessmentPlanSAP;
+    assessmentResults?:         SecurityAssessmentResultsSAR;
     planOfActionAndMilestones?: PlanOfActionAndMilestonesPOAM;
 }
 
@@ -21,18 +21,18 @@ export interface Result {
  * An assessment plan, such as those provided by a FedRAMP assessor.
  */
 export interface SecurityAssessmentPlanSAP {
-    assessmentAssets?: AssessmentAssets;
+    assessmentAssets?:   AssessmentAssets;
     assessmentSubjects?: SubjectOfAssessment[];
-    backMatter?: BackMatter;
-    importSSP: ImportSystemSecurityPlan;
+    backMatter?:         BackMatter;
+    importSSP:           ImportSystemSecurityPlan;
     /**
      * Used to define data objects that are used in the assessment plan, that do not appear in
      * the referenced SSP.
      */
     localDefinitions?: AssessmentPlanLocalDefinitions;
-    metadata: PublicationMetadata;
-    reviewedControls: ReviewedControlsAndControlObjectives;
-    tasks?: Task[];
+    metadata:          PublicationMetadata;
+    reviewedControls:  ReviewedControlsAndControlObjectives;
+    tasks?:            Task[];
     /**
      * Used to define various terms and conditions under which an assessment, described by the
      * plan, can be performed. Each child part defines a different type of term or condition.
@@ -55,20 +55,20 @@ export interface SecurityAssessmentPlanSAP {
  */
 export interface AssessmentAssets {
     assessmentPlatforms: AssessmentPlatform[];
-    components?: AssessmentAssetsComponent[];
+    components?:         AssessmentAssetsComponent[];
 }
 
 /**
  * Used to represent the toolset used to perform aspects of the assessment.
  */
 export interface AssessmentPlatform {
-    links?: Link[];
-    props?: Property[];
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
     /**
      * The title or name for the assessment platform.
      */
-    title?: string;
+    title?:          string;
     usesComponents?: UsesComponent[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -126,7 +126,7 @@ export interface Property {
      * A namespace qualifying the property's name. This allows different organizations to
      * associate distinct semantics with the same name.
      */
-    ns?: string;
+    ns?:      string;
     remarks?: string;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -149,10 +149,10 @@ export interface UsesComponent {
      * A machine-oriented identifier reference to a component that is implemented as part of an
      * inventory item.
      */
-    componentUUID: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    componentUUID:       string;
+    links?:              Link[];
+    props?:              Property[];
+    remarks?:            string;
     responsibleParties?: ResponsibleParty[];
 }
 
@@ -161,10 +161,10 @@ export interface UsesComponent {
  * a referenced role in the context of the containing object.
  */
 export interface ResponsibleParty {
-    links?: Link[];
+    links?:     Link[];
     partyUuids: string[];
-    props?: Property[];
-    remarks?: string;
+    props?:     Property[];
+    remarks?:   string;
     /**
      * A human-oriented identifier reference to roles served by the user.
      */
@@ -179,14 +179,14 @@ export interface AssessmentAssetsComponent {
      * A description of the component, including information about its function.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
-    protocols?: ServiceProtocolInformation[];
+    links?:      Link[];
+    props?:      Property[];
+    protocols?:  ServiceProtocolInformation[];
     /**
      * A summary of the technological or business purpose of the component.
      */
-    purpose?: string;
-    remarks?: string;
+    purpose?:          string;
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * Describes the operational status of the system component.
@@ -219,7 +219,7 @@ export interface ServiceProtocolInformation {
      * The common name of the protocol, which should be the appropriate "service name" from the
      * IANA Service Name and Transport Protocol Port Number Registry.
      */
-    name: string;
+    name:        string;
     portRanges?: PortRange[];
     /**
      * A human readable name for the protocol (e.g., Transport Layer Security).
@@ -267,10 +267,10 @@ export enum Transport {
  * to the containing object.
  */
 export interface ResponsibleRole {
-    links?: Link[];
+    links?:      Link[];
     partyUuids?: string[];
-    props?: Property[];
-    remarks?: string;
+    props?:      Property[];
+    remarks?:    string;
     /**
      * A human-oriented identifier reference to roles responsible for the business function.
      */
@@ -310,13 +310,13 @@ export interface SubjectOfAssessment {
      * A human-readable description of the collection of subjects being included in this
      * assessment.
      */
-    description?: string;
+    description?:     string;
     excludeSubjects?: SelectAssessmentSubject[];
-    includeAll?: IncludeAll;
+    includeAll?:      IncludeAll;
     includeSubjects?: SelectAssessmentSubject[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:           Link[];
+    props?:           Property[];
+    remarks?:         string;
     /**
      * Indicates the type of assessment subject, such as a component, inventory, item, location,
      * or party represented by this selection statement.
@@ -328,8 +328,8 @@ export interface SubjectOfAssessment {
  * Identifies a set of assessment subjects to include/exclude by UUID.
  */
 export interface SelectAssessmentSubject {
-    links?: Link[];
-    props?: Property[];
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
     /**
      * A machine-oriented identifier reference to a component, inventory-item, location, party,
@@ -374,9 +374,9 @@ export interface Resource {
      */
     description?: string;
     documentIDS?: DocumentIdentifier[];
-    props?: Property[];
-    remarks?: string;
-    rlinks?: ResourceLink[];
+    props?:       Property[];
+    remarks?:     string;
+    rlinks?:      ResourceLink[];
     /**
      * A name given to the resource, which may be used by a tool for display and navigation.
      */
@@ -404,7 +404,7 @@ export interface Base64 {
      * Types Registry.
      */
     mediaType?: string;
-    value: string;
+    value:      string;
 }
 
 /**
@@ -461,7 +461,7 @@ export interface Hash {
      * Method by which a hash is derived
      */
     algorithm: string;
-    value: string;
+    value:     string;
 }
 
 /**
@@ -471,7 +471,7 @@ export interface ImportSystemSecurityPlan {
     /**
      * A resolvable URL reference to the system security plan for the system being assessed.
      */
-    href: string;
+    href:     string;
     remarks?: string;
 }
 
@@ -480,12 +480,12 @@ export interface ImportSystemSecurityPlan {
  * the referenced SSP.
  */
 export interface AssessmentPlanLocalDefinitions {
-    activities?: Activity[];
-    components?: AssessmentAssetsComponent[];
-    inventoryItems?: InventoryItem[];
+    activities?:           Activity[];
+    components?:           AssessmentAssetsComponent[];
+    inventoryItems?:       InventoryItem[];
     objectivesAndMethods?: AssessmentSpecificControlObjective[];
-    remarks?: string;
-    users?: SystemUser[];
+    remarks?:              string;
+    users?:                SystemUser[];
 }
 
 /**
@@ -498,13 +498,13 @@ export interface Activity {
     /**
      * A human-readable description of this included activity.
      */
-    description: string;
-    links?: Link[];
-    props?: Property[];
-    relatedControls?: ReviewedControlsAndControlObjectives;
-    remarks?: string;
+    description:       string;
+    links?:            Link[];
+    props?:            Property[];
+    relatedControls?:  ReviewedControlsAndControlObjectives;
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
-    steps?: Step[];
+    steps?:            Step[];
     /**
      * The title for this included activity.
      */
@@ -525,14 +525,14 @@ export interface Activity {
  */
 export interface ReviewedControlsAndControlObjectives {
     controlObjectiveSelections?: ReferencedControlObjectives[];
-    controlSelections: AssessedControls[];
+    controlSelections:           AssessedControls[];
     /**
      * A human-readable description of control objectives.
      */
     description?: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:       Link[];
+    props?:       Property[];
+    remarks?:     string;
 }
 
 /**
@@ -544,13 +544,13 @@ export interface ReferencedControlObjectives {
     /**
      * A human-readable description of this collection of control objectives.
      */
-    description?: string;
+    description?:       string;
     excludeObjectives?: SelectObjective[];
-    includeAll?: IncludeAll;
+    includeAll?:        IncludeAll;
     includeObjectives?: SelectObjective[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:             Link[];
+    props?:             Property[];
+    remarks?:           string;
 }
 
 /**
@@ -573,13 +573,13 @@ export interface AssessedControls {
     /**
      * A human-readable description of in-scope controls specified for assessment.
      */
-    description?: string;
+    description?:     string;
     excludeControls?: SelectControl[];
-    includeAll?: IncludeAll;
+    includeAll?:      IncludeAll;
     includeControls?: SelectControl[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:           Link[];
+    props?:           Property[];
+    remarks?:         string;
 }
 
 /**
@@ -594,7 +594,7 @@ export interface SelectControl {
      * referencing an externally defined control, the Control Identifier Reference must be used
      * in the context of the external / imported OSCAL instance (e.g., uri-reference).
      */
-    controlID: string;
+    controlID:     string;
     statementIDS?: string[];
 }
 
@@ -606,10 +606,10 @@ export interface Step {
     /**
      * A human-readable description of this step.
      */
-    description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    description:       string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     reviewedControls?: ReviewedControlsAndControlObjectives;
     /**
@@ -634,12 +634,12 @@ export interface InventoryItem {
     /**
      * A summary of the inventory item stating its purpose within the system.
      */
-    description: string;
+    description:            string;
     implementedComponents?: ImplementedComponent[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
-    responsibleParties?: ResponsibleParty[];
+    links?:                 Link[];
+    props?:                 Property[];
+    remarks?:               string;
+    responsibleParties?:    ResponsibleParty[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this inventory item elsewhere in this or other OSCAL instances. The locally
@@ -659,10 +659,10 @@ export interface ImplementedComponent {
      * A machine-oriented identifier reference to a component that is implemented as part of an
      * inventory item.
      */
-    componentUUID: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    componentUUID:       string;
+    links?:              Link[];
+    props?:              Property[];
+    remarks?:            string;
     responsibleParties?: ResponsibleParty[];
 }
 
@@ -681,10 +681,10 @@ export interface AssessmentSpecificControlObjective {
      * A human-readable description of this control objective.
      */
     description?: string;
-    links?: Link[];
-    parts: Part[];
-    props?: Property[];
-    remarks?: string;
+    links?:       Link[];
+    parts:        Part[];
+    props?:       Property[];
+    remarks?:     string;
 }
 
 /**
@@ -705,7 +705,7 @@ export interface Part {
      * means it should be consistently used to identify the same subject across revisions of the
      * document.
      */
-    id?: string;
+    id?:    string;
     links?: Link[];
     /**
      * A textual label that uniquely identifies the part's semantic type.
@@ -715,7 +715,7 @@ export interface Part {
      * A namespace qualifying the part's name. This allows different organizations to associate
      * distinct semantics with the same name.
      */
-    ns?: string;
+    ns?:    string;
     parts?: Part[];
     props?: Property[];
     /**
@@ -737,10 +737,10 @@ export interface SystemUser {
      * A summary of the user's purpose within the system.
      */
     description?: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
-    roleIDS?: string[];
+    links?:       Link[];
+    props?:       Property[];
+    remarks?:     string;
+    roleIDS?:     string[];
     /**
      * A short common name, abbreviation, or acronym for the user.
      */
@@ -768,7 +768,7 @@ export interface Privilege {
     /**
      * A summary of the privilege's purpose within the system.
      */
-    description?: string;
+    description?:       string;
     functionsPerformed: string[];
     /**
      * A human readable name for the privilege.
@@ -780,22 +780,22 @@ export interface Privilege {
  * Provides information about the publication and availability of the containing document.
  */
 export interface PublicationMetadata {
-    documentIDS?: DocumentIdentifier[];
-    lastModified: Date;
-    links?: Link[];
-    locations?: Location[];
-    oscalVersion: string;
-    parties?: PartyOrganizationOrPerson[];
-    props?: Property[];
-    published?: Date;
-    remarks?: string;
+    documentIDS?:        DocumentIdentifier[];
+    lastModified:        Date;
+    links?:              Link[];
+    locations?:          Location[];
+    oscalVersion:        string;
+    parties?:            PartyOrganizationOrPerson[];
+    props?:              Property[];
+    published?:          Date;
+    remarks?:            string;
     responsibleParties?: ResponsibleParty[];
-    revisions?: RevisionHistoryEntry[];
-    roles?: Role[];
+    revisions?:          RevisionHistoryEntry[];
+    roles?:              Role[];
     /**
      * A name given to the document, which may be used by a tool for display and navigation.
      */
-    title: string;
+    title:   string;
     version: string;
 }
 
@@ -803,17 +803,17 @@ export interface PublicationMetadata {
  * A location, with associated metadata that can be referenced.
  */
 export interface Location {
-    address: Address;
-    emailAddresses?: string[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    address:           Address;
+    emailAddresses?:   string[];
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     telephoneNumbers?: TelephoneNumber[];
     /**
      * A name given to the location, which may be used by a tool for display and navigation.
      */
     title?: string;
-    urls?: string[];
+    urls?:  string[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this defined location elsewhere in this or other OSCAL instances. The
@@ -867,22 +867,22 @@ export interface TelephoneNumber {
  * A responsible entity which is either a person or an organization.
  */
 export interface PartyOrganizationOrPerson {
-    addresses?: Address[];
-    emailAddresses?: string[];
-    externalIDS?: PartyExternalIdentifier[];
-    links?: Link[];
-    locationUuids?: string[];
+    addresses?:             Address[];
+    emailAddresses?:        string[];
+    externalIDS?:           PartyExternalIdentifier[];
+    links?:                 Link[];
+    locationUuids?:         string[];
     memberOfOrganizations?: string[];
     /**
      * The full name of the party. This is typically the legal name associated with the party.
      */
-    name?: string;
-    props?: Property[];
+    name?:    string;
+    props?:   Property[];
     remarks?: string;
     /**
      * A short common name, abbreviation, or acronym for the party.
      */
-    shortName?: string;
+    shortName?:        string;
     telephoneNumbers?: TelephoneNumber[];
     /**
      * A category describing the kind of party the object describes.
@@ -925,16 +925,16 @@ export enum PartyType {
  */
 export interface RevisionHistoryEntry {
     lastModified?: Date;
-    links?: Link[];
+    links?:        Link[];
     oscalVersion?: string;
-    props?: Property[];
-    published?: Date;
-    remarks?: string;
+    props?:        Property[];
+    published?:    Date;
+    remarks?:      string;
     /**
      * A name given to the document revision, which may be used by a tool for display and
      * navigation.
      */
-    title?: string;
+    title?:  string;
     version: string;
 }
 
@@ -955,9 +955,9 @@ export interface Role {
      * assigned per-subject, which means it should be consistently used to identify the same
      * subject across revisions of the document.
      */
-    id: string;
-    links?: Link[];
-    props?: Property[];
+    id:       string;
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
     /**
      * A short common name, abbreviation, or acronym for the role.
@@ -975,17 +975,17 @@ export interface Role {
  */
 export interface Task {
     associatedActivities?: AssociatedActivity[];
-    dependencies?: TaskDependency[];
+    dependencies?:         TaskDependency[];
     /**
      * A human-readable description of this task.
      */
-    description?: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    description?:      string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
-    subjects?: SubjectOfAssessment[];
-    tasks?: Task[];
+    subjects?:         SubjectOfAssessment[];
+    tasks?:            Task[];
     /**
      * The timing under which the task is intended to occur.
      */
@@ -1015,12 +1015,12 @@ export interface AssociatedActivity {
     /**
      * A machine-oriented identifier reference to an activity defined in the list of activities.
      */
-    activityUUID: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    activityUUID:      string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
-    subjects: SubjectOfAssessment[];
+    subjects:          SubjectOfAssessment[];
 }
 
 /**
@@ -1129,7 +1129,7 @@ export interface AssessmentPart {
      * A namespace qualifying the part's name. This allows different organizations to associate
      * distinct semantics with the same name.
      */
-    ns?: string;
+    ns?:    string;
     parts?: AssessmentPart[];
     props?: Property[];
     /**
@@ -1156,14 +1156,14 @@ export interface AssessmentPart {
  */
 export interface SecurityAssessmentResultsSAR {
     backMatter?: BackMatter;
-    importAp: ImportAssessmentPlan;
+    importAp:    ImportAssessmentPlan;
     /**
      * Used to define data objects that are used in the assessment plan, that do not appear in
      * the referenced SSP.
      */
     localDefinitions?: AssessmentResultsLocalDefinitions;
-    metadata: PublicationMetadata;
-    results: AssessmentResult[];
+    metadata:          PublicationMetadata;
+    results:           AssessmentResult[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this assessment results instance in this or other OSCAL instances. The
@@ -1183,7 +1183,7 @@ export interface ImportAssessmentPlan {
     /**
      * A resolvable URL reference to the assessment plan governing the assessment activities.
      */
-    href: string;
+    href:     string;
     remarks?: string;
 }
 
@@ -1192,9 +1192,9 @@ export interface ImportAssessmentPlan {
  * the referenced SSP.
  */
 export interface AssessmentResultsLocalDefinitions {
-    activities?: Activity[];
+    activities?:           Activity[];
     objectivesAndMethods?: AssessmentSpecificControlObjective[];
-    remarks?: string;
+    remarks?:              string;
 }
 
 /**
@@ -1208,7 +1208,7 @@ export interface AssessmentResult {
      * A log of all assessment-related actions taken.
      */
     assessmentLog?: AssessmentLog;
-    attestations?: AttestationStatements[];
+    attestations?:  AttestationStatements[];
     /**
      * A human-readable description of this set of test results.
      */
@@ -1218,19 +1218,19 @@ export interface AssessmentResult {
      * results. In a continuous motoring scenario, this may contain the same value as start if
      * appropriate.
      */
-    end?: Date;
+    end?:      Date;
     findings?: Finding[];
-    links?: Link[];
+    links?:    Link[];
     /**
      * Used to define data objects that are used in the assessment plan, that do not appear in
      * the referenced SSP.
      */
     localDefinitions?: ResultLocalDefinitions;
-    observations?: Observation[];
-    props?: Property[];
-    remarks?: string;
-    reviewedControls: ReviewedControlsAndControlObjectives;
-    risks?: IdentifiedRisk[];
+    observations?:     Observation[];
+    props?:            Property[];
+    remarks?:          string;
+    reviewedControls:  ReviewedControlsAndControlObjectives;
+    risks?:            IdentifiedRisk[];
     /**
      * Date/time stamp identifying the start of the evidence collection reflected in these
      * results.
@@ -1271,12 +1271,12 @@ export interface AssessmentLogEntry {
      * Identifies the end date and time of an event. If the event is a point in time, the start
      * and end will be the same date and time.
      */
-    end?: Date;
-    links?: Link[];
-    loggedBy?: LoggedBy[];
-    props?: Property[];
+    end?:          Date;
+    links?:        Link[];
+    loggedBy?:     LoggedBy[];
+    props?:        Property[];
     relatedTasks?: TaskReference[];
-    remarks?: string;
+    remarks?:      string;
     /**
      * Identifies the start date and time of an event.
      */
@@ -1317,12 +1317,12 @@ export interface TaskReference {
     /**
      * Used to detail assessment subjects that were identfied by this task.
      */
-    identifiedSubject?: IdentifiedSubject;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    identifiedSubject?:  IdentifiedSubject;
+    links?:              Link[];
+    props?:              Property[];
+    remarks?:            string;
     responsibleParties?: ResponsibleParty[];
-    subjects?: SubjectOfAssessment[];
+    subjects?:           SubjectOfAssessment[];
     /**
      * A machine-oriented identifier reference to a unique task.
      */
@@ -1338,14 +1338,14 @@ export interface IdentifiedSubject {
      * defined by this task.
      */
     subjectPlaceholderUUID: string;
-    subjects: SubjectOfAssessment[];
+    subjects:               SubjectOfAssessment[];
 }
 
 /**
  * A set of textual statements, typically written by the assessor.
  */
 export interface AttestationStatements {
-    parts: AssessmentPart[];
+    parts:               AssessmentPart[];
     responsibleParties?: ResponsibleParty[];
 }
 
@@ -1362,13 +1362,13 @@ export interface Finding {
      * which this finding is related.
      */
     implementationStatementUUID?: string;
-    links?: Link[];
-    origins?: FindingOrigin[];
-    props?: Property[];
-    relatedObservations?: FindingRelatedObservation[];
-    relatedRisks?: FindingRelatedRisk[];
-    remarks?: string;
-    target: TargetClass;
+    links?:                       Link[];
+    origins?:                     FindingOrigin[];
+    props?:                       Property[];
+    relatedObservations?:         FindingRelatedObservation[];
+    relatedRisks?:                FindingRelatedRisk[];
+    remarks?:                     string;
+    target:                       TargetClass;
     /**
      * The title for this finding.
      */
@@ -1387,7 +1387,7 @@ export interface Finding {
  * Identifies the source of the finding, such as a tool, interviewed person, or activity.
  */
 export interface FindingOrigin {
-    actors: OriginatingActor[];
+    actors:        OriginatingActor[];
     relatedTasks?: TaskReference[];
 }
 
@@ -1401,8 +1401,8 @@ export interface OriginatingActor {
      * type.
      */
     actorUUID: string;
-    links?: Link[];
-    props?: Property[];
+    links?:    Link[];
+    props?:    Property[];
     /**
      * For a party, this can optionally be used to specify the role the actor was performing.
      */
@@ -1453,11 +1453,11 @@ export interface TargetClass {
      * A human-readable description of the assessor's conclusions regarding the degree to which
      * an objective is satisfied.
      */
-    description?: string;
+    description?:          string;
     implementationStatus?: ImplementationStatus;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:                Link[];
+    props?:                Property[];
+    remarks?:              string;
     /**
      * A determination of if the objective is satisfied or not within a given system.
      */
@@ -1494,7 +1494,7 @@ export interface StatusClass {
     /**
      * The reason the objective was given it's status.
      */
-    reason?: string;
+    reason?:  string;
     remarks?: string;
     /**
      * An indication as to whether the objective is satisfied or not.
@@ -1524,10 +1524,10 @@ export enum FindingTargetType {
  */
 export interface ResultLocalDefinitions {
     assessmentAssets?: AssessmentAssets;
-    components?: AssessmentAssetsComponent[];
-    inventoryItems?: InventoryItem[];
-    tasks?: Task[];
-    users?: SystemUser[];
+    components?:       AssessmentAssetsComponent[];
+    inventoryItems?:   InventoryItem[];
+    tasks?:            Task[];
+    users?:            SystemUser[];
 }
 
 /**
@@ -1546,14 +1546,14 @@ export interface Observation {
      * Date/time identifying when the finding information is out-of-date and no longer valid.
      * Typically used with continuous assessment scenarios.
      */
-    expires?: Date;
-    links?: Link[];
-    methods: string[];
-    origins?: FindingOrigin[];
-    props?: Property[];
+    expires?:          Date;
+    links?:            Link[];
+    methods:           string[];
+    origins?:          FindingOrigin[];
+    props?:            Property[];
     relevantEvidence?: RelevantEvidence[];
-    remarks?: string;
-    subjects?: IdentifiesTheSubject[];
+    remarks?:          string;
+    subjects?:         IdentifiesTheSubject[];
     /**
      * The title for this observation.
      */
@@ -1581,9 +1581,9 @@ export interface RelevantEvidence {
     /**
      * A resolvable URL reference to relevant evidence.
      */
-    href?: string;
-    links?: Link[];
-    props?: Property[];
+    href?:    string;
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
 }
 
@@ -1592,8 +1592,8 @@ export interface RelevantEvidence {
  * identified resource is a component, inventory item, location, user, or something else.
  */
 export interface IdentifiesTheSubject {
-    links?: Link[];
-    props?: Property[];
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
     /**
      * A machine-oriented identifier reference to a component, inventory-item, location, party,
@@ -1623,13 +1623,13 @@ export interface IdentifiedRisk {
      * A human-readable summary of the identified risk, to include a statement of how the risk
      * impacts the system.
      */
-    description: string;
-    links?: Link[];
-    mitigatingFactors?: MitigatingFactor[];
-    origins?: FindingOrigin[];
-    props?: Property[];
+    description:          string;
+    links?:               Link[];
+    mitigatingFactors?:   MitigatingFactor[];
+    origins?:             FindingOrigin[];
+    props?:               Property[];
     relatedObservations?: RiskRelatedObservation[];
-    remediations?: RiskResponse[];
+    remediations?:        RiskResponse[];
     /**
      * A log of all risk-related tasks taken.
      */
@@ -1637,8 +1637,8 @@ export interface IdentifiedRisk {
     /**
      * An summary of impact for how the risk affects the system.
      */
-    statement: string;
-    status: string;
+    statement:  string;
+    status:     string;
     threatIDS?: ThreatID[];
     /**
      * The title for this risk.
@@ -1672,8 +1672,8 @@ export interface Facet {
     /**
      * The name of the risk metric within the specified system.
      */
-    name: string;
-    props?: Property[];
+    name:     string;
+    props?:   Property[];
     remarks?: string;
     /**
      * Specifies the naming system under which this risk metric is organized, which allows for
@@ -1705,9 +1705,9 @@ export interface MitigatingFactor {
      * subject across revisions of the document.
      */
     implementationUUID?: string;
-    links?: Link[];
-    props?: Property[];
-    subjects?: IdentifiesTheSubject[];
+    links?:              Link[];
+    props?:              Property[];
+    subjects?:           IdentifiesTheSubject[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this mitigating factor elsewhere in this or other OSCAL instances. The
@@ -1743,13 +1743,13 @@ export interface RiskResponse {
      * Identifies whether this is a recommendation, such as from an assessor or tool, or an
      * actual plan accepted by the system owner.
      */
-    lifecycle: string;
-    links?: Link[];
-    origins?: FindingOrigin[];
-    props?: Property[];
-    remarks?: string;
+    lifecycle:       string;
+    links?:          Link[];
+    origins?:        FindingOrigin[];
+    props?:          Property[];
+    remarks?:        string;
     requiredAssets?: RequiredAsset[];
-    tasks?: Task[];
+    tasks?:          Task[];
     /**
      * The title for this response activity.
      */
@@ -1773,10 +1773,10 @@ export interface RequiredAsset {
      * A human-readable description of this required asset.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
-    subjects?: IdentifiesTheSubject[];
+    links?:      Link[];
+    props?:      Property[];
+    remarks?:    string;
+    subjects?:   IdentifiesTheSubject[];
     /**
      * The title for this required asset.
      */
@@ -1812,16 +1812,16 @@ export interface RiskLogEntry {
      * Identifies the end date and time of the event. If the event is a point in time, the start
      * and end will be the same date and time.
      */
-    end?: Date;
-    links?: Link[];
-    loggedBy?: LoggedBy[];
-    props?: Property[];
+    end?:              Date;
+    links?:            Link[];
+    loggedBy?:         LoggedBy[];
+    props?:            Property[];
     relatedResponses?: RiskResponseReference[];
-    remarks?: string;
+    remarks?:          string;
     /**
      * Identifies the start date and time of the event.
      */
-    start: Date;
+    start:         Date;
     statusChange?: string;
     /**
      * The title for this risk log entry.
@@ -1842,10 +1842,10 @@ export interface RiskLogEntry {
  * Identifies an individual risk response that this log entry is for.
  */
 export interface RiskResponseReference {
-    links?: Link[];
-    props?: Property[];
+    links?:        Link[];
+    props?:        Property[];
     relatedTasks?: TaskReference[];
-    remarks?: string;
+    remarks?:      string;
     /**
      * A machine-oriented identifier reference to a unique risk response.
      */
@@ -1860,7 +1860,7 @@ export interface ThreatID {
      * An optional location for the threat data, from which this ID originates.
      */
     href?: string;
-    id: string;
+    id:    string;
     /**
      * Specifies the source of the threat information.
      */
@@ -1872,10 +1872,10 @@ export interface ThreatID {
  */
 export interface Catalog {
     backMatter?: BackMatter;
-    controls?: Control[];
-    groups?: ControlGroup[];
-    metadata: PublicationMetadata;
-    params?: Parameter[];
+    controls?:   Control[];
+    groups?:     ControlGroup[];
+    metadata:    PublicationMetadata;
+    params?:     Parameter[];
     /**
      * A globally unique identifier with cross-instance scope for this catalog instance. This
      * UUID should be changed when this document is revised.
@@ -1891,7 +1891,7 @@ export interface Control {
     /**
      * A textual label that provides a sub-type or characterization of the control.
      */
-    class?: string;
+    class?:    string;
     controls?: Control[];
     /**
      * A human-oriented, locally unique identifier with instance scope that can be used to
@@ -1899,11 +1899,11 @@ export interface Control {
      * id should be assigned per-subject, which means it should be consistently used to identify
      * the same control across revisions of the document.
      */
-    id: string;
-    links?: Link[];
+    id:      string;
+    links?:  Link[];
     params?: Parameter[];
-    parts?: Part[];
-    props?: Property[];
+    parts?:  Part[];
+    props?:  Property[];
     /**
      * A name given to the control, which may be used by a tool for display and navigation.
      */
@@ -1917,13 +1917,13 @@ export interface Parameter {
     /**
      * A textual label that provides a characterization of the parameter.
      */
-    class?: string;
+    class?:       string;
     constraints?: Constraint[];
     /**
      * **(deprecated)** Another parameter invoking this one. This construct has been deprecated
      * and should not be used.
      */
-    dependsOn?: string;
+    dependsOn?:  string;
     guidelines?: Guideline[];
     /**
      * A human-oriented, locally unique identifier with cross-instance scope that can be used to
@@ -1938,15 +1938,15 @@ export interface Parameter {
      * A short, placeholder name for the parameter, which can be used as a substitute for a
      * value if no value is assigned.
      */
-    label?: string;
-    links?: Link[];
-    props?: Property[];
+    label?:   string;
+    links?:   Link[];
+    props?:   Property[];
     remarks?: string;
-    select?: Selection;
+    select?:  Selection;
     /**
      * Describes the purpose and use of a parameter
      */
-    usage?: string;
+    usage?:  string;
     values?: string[];
 }
 
@@ -1958,7 +1958,7 @@ export interface Constraint {
      * A textual summary of the constraint to be applied.
      */
     description?: string;
-    tests?: ConstraintTest[];
+    tests?:       ConstraintTest[];
 }
 
 /**
@@ -1969,7 +1969,7 @@ export interface ConstraintTest {
      * A formal (executable) expression of a constraint
      */
     expression: string;
-    remarks?: string;
+    remarks?:   string;
 }
 
 /**
@@ -2010,20 +2010,20 @@ export interface ControlGroup {
     /**
      * A textual label that provides a sub-type or characterization of the group.
      */
-    class?: string;
+    class?:    string;
     controls?: Control[];
-    groups?: ControlGroup[];
+    groups?:   ControlGroup[];
     /**
      * A human-oriented, locally unique identifier with cross-instance scope that can be used to
      * reference this defined group elsewhere in in this and other OSCAL instances (e.g.,
      * profiles). This id should be assigned per-subject, which means it should be consistently
      * used to identify the same group across revisions of the document.
      */
-    id?: string;
-    links?: Link[];
+    id?:     string;
+    links?:  Link[];
     params?: Parameter[];
-    parts?: Part[];
-    props?: Property[];
+    parts?:  Part[];
+    props?:  Property[];
     /**
      * A name given to the group, which may be used by a tool for display and navigation.
      */
@@ -2034,11 +2034,11 @@ export interface ControlGroup {
  * A collection of component descriptions, which may optionally be grouped by capability.
  */
 export interface ComponentDefinition {
-    backMatter?: BackMatter;
-    capabilities?: Capability[];
-    components?: ComponentDefinitionComponent[];
+    backMatter?:                 BackMatter;
+    capabilities?:               Capability[];
+    components?:                 ComponentDefinitionComponent[];
     importComponentDefinitions?: ImportComponentDefinition[];
-    metadata: PublicationMetadata;
+    metadata:                    PublicationMetadata;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this component definition elsewhere in this or other OSCAL instances. The
@@ -2058,14 +2058,14 @@ export interface Capability {
     /**
      * A summary of the capability.
      */
-    description: string;
+    description:             string;
     incorporatesComponents?: IncorporatesComponent[];
-    links?: Link[];
+    links?:                  Link[];
     /**
      * The capability's human-readable name.
      */
-    name: string;
-    props?: Property[];
+    name:     string;
+    props?:   Property[];
     remarks?: string;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -2086,11 +2086,11 @@ export interface ControlImplementationSet {
      * A description of how the specified set of controls are implemented for the containing
      * component or capability.
      */
-    description: string;
+    description:             string;
     implementedRequirements: ImplementedRequirementElement[];
-    links?: Link[];
-    props?: Property[];
-    setParameters?: SetParameterValue[];
+    links?:                  Link[];
+    props?:                  Property[];
+    setParameters?:          SetParameterValue[];
     /**
      * A reference to an OSCAL catalog or profile providing the referenced control or subcontrol
      * definition.
@@ -2121,13 +2121,13 @@ export interface ImplementedRequirementElement {
      * A suggestion for how the specified control may be implemented if the containing component
      * or capability is instantiated in a system security plan.
      */
-    description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    description:       string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
-    setParameters?: SetParameterValue[];
-    statements?: ControlStatementImplementation[];
+    setParameters?:    SetParameterValue[];
+    statements?:       ControlStatementImplementation[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference a specific control implementation elsewhere in this or other OSCAL
@@ -2147,9 +2147,9 @@ export interface SetParameterValue {
      * A human-oriented reference to a parameter within a control, who's catalog has been
      * imported into the current implementation context.
      */
-    paramID: string;
+    paramID:  string;
     remarks?: string;
-    values: string[];
+    values:   string[];
 }
 
 /**
@@ -2160,10 +2160,10 @@ export interface ControlStatementImplementation {
      * A summary of how the containing control statement is implemented by the component or
      * capability.
      */
-    description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    description:       string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A human-oriented identifier reference to a control statement.
@@ -2201,14 +2201,14 @@ export interface ComponentDefinitionComponent {
      * A description of the component, including information about its function.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
-    protocols?: ServiceProtocolInformation[];
+    links?:      Link[];
+    props?:      Property[];
+    protocols?:  ServiceProtocolInformation[];
     /**
      * A summary of the technological or business purpose of the component.
      */
-    purpose?: string;
-    remarks?: string;
+    purpose?:          string;
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A human readable name for the component.
@@ -2245,14 +2245,14 @@ export interface ImportComponentDefinition {
  * and disposition, such as those required by FedRAMP.
  */
 export interface PlanOfActionAndMilestonesPOAM {
-    backMatter?: BackMatter;
-    importSSP?: ImportSystemSecurityPlan;
+    backMatter?:       BackMatter;
+    importSSP?:        ImportSystemSecurityPlan;
     localDefinitions?: PlanOfActionAndMilestonesLocalDefinitions;
-    metadata: PublicationMetadata;
-    observations?: Observation[];
-    poamItems: POAMItem[];
-    risks?: IdentifiedRisk[];
-    systemID?: SystemIdentification;
+    metadata:          PublicationMetadata;
+    observations?:     Observation[];
+    poamItems:         POAMItem[];
+    risks?:            IdentifiedRisk[];
+    systemID?:         SystemIdentification;
     /**
      * A machine-oriented, globally unique identifier with instancescope that can be used to
      * reference this POA&M instance in this OSCAL instance. This UUID should be assigned
@@ -2267,9 +2267,9 @@ export interface PlanOfActionAndMilestonesPOAM {
  * where no OSCAL-based SSP exists, or is not delivered with the POA&M.
  */
 export interface PlanOfActionAndMilestonesLocalDefinitions {
-    components?: AssessmentAssetsComponent[];
+    components?:     AssessmentAssetsComponent[];
     inventoryItems?: InventoryItem[];
-    remarks?: string;
+    remarks?:        string;
 }
 
 /**
@@ -2279,13 +2279,13 @@ export interface POAMItem {
     /**
      * A human-readable description of POA&M item.
      */
-    description: string;
-    links?: Link[];
-    origins?: PoamItemOrigin[];
-    props?: Property[];
+    description:          string;
+    links?:               Link[];
+    origins?:             PoamItemOrigin[];
+    props?:               Property[];
     relatedObservations?: PoamItemRelatedObservation[];
-    relatedRisks?: PoamItemRelatedRisk[];
-    remarks?: string;
+    relatedRisks?:        PoamItemRelatedRisk[];
+    remarks?:             string;
     /**
      * The title or name for this POA&M item .
      */
@@ -2349,10 +2349,10 @@ export interface SystemIdentification {
  */
 export interface Profile {
     backMatter?: BackMatter;
-    imports: ImportResource[];
-    merge?: MergeControls;
-    metadata: PublicationMetadata;
-    modify?: ModifyControls;
+    imports:     ImportResource[];
+    merge?:      MergeControls;
+    metadata:    PublicationMetadata;
+    modify?:     ModifyControls;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this profile elsewhere in this or other OSCAL instances. The locally defined
@@ -2374,8 +2374,8 @@ export interface ImportResource {
     /**
      * A resolvable URL reference to the base catalog or profile that this profile is tailoring.
      */
-    href: string;
-    includeAll?: IncludeAll;
+    href:             string;
+    includeAll?:      IncludeAll;
     includeControls?: Call[];
 }
 
@@ -2388,7 +2388,7 @@ export interface Call {
      * When a control is included, whether its child (dependent) controls are also included.
      */
     withChildControls?: IncludeContainedControlsWithControl;
-    withIDS?: string[];
+    withIDS?:           string[];
 }
 
 /**
@@ -2458,7 +2458,7 @@ export enum CombinationMethod {
  * A Custom element frames a structure for embedding represented controls in resolution.
  */
 export interface CustomGrouping {
-    groups?: CustomGroup[];
+    groups?:         CustomGroup[];
     insertControls?: SelectControls[];
 }
 
@@ -2469,7 +2469,7 @@ export interface CustomGroup {
     /**
      * A textual label that provides a sub-type or characterization of the group.
      */
-    class?: string;
+    class?:  string;
     groups?: CustomGroup[];
     /**
      * A human-oriented, locally unique identifier with cross-instance scope that can be used to
@@ -2479,12 +2479,12 @@ export interface CustomGroup {
      * means it should be consistently used to identify the same group across revisions of the
      * document.
      */
-    id?: string;
+    id?:             string;
     insertControls?: SelectControls[];
-    links?: Link[];
-    params?: Parameter[];
-    parts?: Part[];
-    props?: Property[];
+    links?:          Link[];
+    params?:         Parameter[];
+    parts?:          Part[];
+    props?:          Property[];
     /**
      * A name given to the group, which may be used by a tool for display and navigation.
      */
@@ -2496,7 +2496,7 @@ export interface CustomGroup {
  */
 export interface SelectControls {
     excludeControls?: Call[];
-    includeAll?: IncludeAll;
+    includeAll?:      IncludeAll;
     includeControls?: Call[];
     /**
      * A designation of how a selection of controls in a profile is to be ordered.
@@ -2523,7 +2523,7 @@ export interface Flat {
  * Set parameters or amend controls in resolution
  */
 export interface ModifyControls {
-    alters?: Alteration[];
+    alters?:        Alteration[];
     setParameters?: ParameterSetting[];
 }
 
@@ -2539,7 +2539,7 @@ export interface Alteration {
      * in the context of the external / imported OSCAL instance (e.g., uri-reference).
      */
     controlID: string;
-    removes?: Removal[];
+    removes?:  Removal[];
 }
 
 /**
@@ -2549,15 +2549,15 @@ export interface Addition {
     /**
      * Target location of the addition.
      */
-    byID?: string;
-    links?: Link[];
+    byID?:   string;
+    links?:  Link[];
     params?: Parameter[];
-    parts?: Part[];
+    parts?:  Part[];
     /**
      * Where to add the new content with respect to the targeted element (beside it or inside it)
      */
     position?: Position;
-    props?: Property[];
+    props?:    Property[];
     /**
      * A name given to the control, which may be used by a tool for display and navigation.
      */
@@ -2610,13 +2610,13 @@ export interface ParameterSetting {
     /**
      * A textual label that provides a characterization of the parameter.
      */
-    class?: string;
+    class?:       string;
     constraints?: Constraint[];
     /**
      * **(deprecated)** Another parameter invoking this one. This construct has been deprecated
      * and should not be used.
      */
-    dependsOn?: string;
+    dependsOn?:  string;
     guidelines?: Guideline[];
     /**
      * A short, placeholder name for the parameter, which can be used as a substitute for a
@@ -2633,12 +2633,12 @@ export interface ParameterSetting {
      * across revisions of the document.
      */
     paramID: string;
-    props?: Property[];
+    props?:  Property[];
     select?: Selection;
     /**
      * Describes the purpose and use of a parameter
      */
-    usage?: string;
+    usage?:  string;
     values?: string[];
 }
 
@@ -2646,12 +2646,12 @@ export interface ParameterSetting {
  * A system security plan, such as those described in NIST SP 800-18
  */
 export interface SystemSecurityPlanSSP {
-    backMatter?: BackMatter;
+    backMatter?:           BackMatter;
     controlImplementation: ControlImplementationClass;
-    importProfile: ImportProfile;
-    metadata: PublicationMetadata;
+    importProfile:         ImportProfile;
+    metadata:              PublicationMetadata;
     systemCharacteristics: SystemCharacteristics;
-    systemImplementation: SystemImplementation;
+    systemImplementation:  SystemImplementation;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this system security plan (SSP) elsewhere in this or other OSCAL instances.
@@ -2671,9 +2671,9 @@ export interface ControlImplementationClass {
      * A statement describing important things to know about how this set of control
      * satisfaction documentation is approached.
      */
-    description: string;
+    description:             string;
     implementedRequirements: ControlBasedRequirement[];
-    setParameters?: SetParameterValue[];
+    setParameters?:          SetParameterValue[];
 }
 
 /**
@@ -2686,13 +2686,13 @@ export interface ControlBasedRequirement {
      * referencing an externally defined control, the Control Identifier Reference must be used
      * in the context of the external / imported OSCAL instance (e.g., uri-reference).
      */
-    controlID: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    controlID:         string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
-    setParameters?: SetParameterValue[];
-    statements?: SpecificControlStatement[];
+    setParameters?:    SetParameterValue[];
+    statements?:       SpecificControlStatement[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this control requirement elsewhere in this or other OSCAL instances. The
@@ -2722,15 +2722,15 @@ export interface ComponentControlImplementation {
      * Identifies content intended for external consumption, such as with leveraged
      * organizations.
      */
-    export?: Export;
+    export?:               Export;
     implementationStatus?: ImplementationStatus;
-    inherited?: InheritedControlImplementation[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
-    responsibleRoles?: ResponsibleRole[];
-    satisfied?: SatisfiedControlImplementationResponsibility[];
-    setParameters?: SetParameterValue[];
+    inherited?:            InheritedControlImplementation[];
+    links?:                Link[];
+    props?:                Property[];
+    remarks?:              string;
+    responsibleRoles?:     ResponsibleRole[];
+    satisfied?:            SatisfiedControlImplementationResponsibility[];
+    setParameters?:        SetParameterValue[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this by-component entry elsewhere in this or other OSCAL instances. The
@@ -2751,11 +2751,11 @@ export interface Export {
      * An implementation statement that describes the aspects of the control or control
      * statement implementation that can be available to another system leveraging this system.
      */
-    description?: string;
-    links?: Link[];
-    props?: Property[];
-    provided?: ProvidedControlImplementation[];
-    remarks?: string;
+    description?:      string;
+    links?:            Link[];
+    props?:            Property[];
+    provided?:         ProvidedControlImplementation[];
+    remarks?:          string;
     responsibilities?: ControlImplementationResponsibility[];
 }
 
@@ -2767,10 +2767,10 @@ export interface ProvidedControlImplementation {
      * An implementation statement that describes the aspects of the control or control
      * statement implementation that can be provided to another system leveraging this system.
      */
-    description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    description:       string;
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -2793,14 +2793,14 @@ export interface ControlImplementationResponsibility {
      * provided by a leveraged system.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
+    links?:      Link[];
+    props?:      Property[];
     /**
      * A machine-oriented identifier reference to an inherited control implementation that a
      * leveraging system is inheriting from a leveraged system.
      */
-    providedUUID?: string;
-    remarks?: string;
+    providedUUID?:     string;
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -2822,13 +2822,13 @@ export interface InheritedControlImplementation {
      * implementation that a leveraging system is inheriting from a leveraged system.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
+    links?:      Link[];
+    props?:      Property[];
     /**
      * A machine-oriented identifier reference to an inherited control implementation that a
      * leveraging system is inheriting from a leveraged system.
      */
-    providedUUID?: string;
+    providedUUID?:     string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
@@ -2851,15 +2851,15 @@ export interface SatisfiedControlImplementationResponsibility {
      * leveraged system.
      */
     description: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:      Link[];
+    props?:      Property[];
+    remarks?:    string;
     /**
      * A machine-oriented identifier reference to a control implementation that satisfies a
      * responsibility imposed by a leveraged system.
      */
     responsibilityUUID?: string;
-    responsibleRoles?: ResponsibleRole[];
+    responsibleRoles?:   ResponsibleRole[];
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this satisfied control implementation entry elsewhere in this or other OSCAL
@@ -2875,10 +2875,10 @@ export interface SatisfiedControlImplementationResponsibility {
  * Identifies which statements within a control are addressed.
  */
 export interface SpecificControlStatement {
-    byComponents?: ComponentControlImplementation[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    byComponents?:     ComponentControlImplementation[];
+    links?:            Link[];
+    props?:            Property[];
+    remarks?:          string;
     responsibleRoles?: ResponsibleRole[];
     /**
      * A human-oriented identifier reference to a control statement.
@@ -2901,7 +2901,7 @@ export interface ImportProfile {
      * A resolvable URL reference to the profile or catalog to use as the system's control
      * baseline.
      */
-    href: string;
+    href:     string;
     remarks?: string;
 }
 
@@ -2911,25 +2911,25 @@ export interface ImportProfile {
  */
 export interface SystemCharacteristics {
     authorizationBoundary: AuthorizationBoundary;
-    dataFlow?: DataFlow;
-    dateAuthorized?: string;
+    dataFlow?:             DataFlow;
+    dateAuthorized?:       string;
     /**
      * A summary of the system.
      */
-    description: string;
-    links?: Link[];
+    description:          string;
+    links?:               Link[];
     networkArchitecture?: NetworkArchitecture;
-    props?: Property[];
-    remarks?: string;
-    responsibleParties?: ResponsibleParty[];
-    securityImpactLevel: SecurityImpactLevel;
+    props?:               Property[];
+    remarks?:             string;
+    responsibleParties?:  ResponsibleParty[];
+    securityImpactLevel:  SecurityImpactLevel;
     /**
      * The overall information system sensitivity categorization, such as defined by FIPS-199.
      */
     securitySensitivityLevel: string;
-    status: SystemCharacteristicsStatus;
-    systemIDS: SystemIdentification[];
-    systemInformation: SystemInformation;
+    status:                   SystemCharacteristicsStatus;
+    systemIDS:                SystemIdentification[];
+    systemInformation:        SystemInformation;
     /**
      * The full name of the system.
      */
@@ -2950,10 +2950,10 @@ export interface AuthorizationBoundary {
      * A summary of the system's authorization boundary.
      */
     description: string;
-    diagrams?: Diagram[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    diagrams?:   Diagram[];
+    links?:      Link[];
+    props?:      Property[];
+    remarks?:    string;
 }
 
 /**
@@ -2968,9 +2968,9 @@ export interface Diagram {
      * A summary of the diagram.
      */
     description?: string;
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    links?:       Link[];
+    props?:       Property[];
+    remarks?:     string;
     /**
      * A machine-oriented, globally unique identifier with cross-instance scope that can be used
      * to reference this diagram elsewhere in this or other OSCAL instances. The locally defined
@@ -2990,10 +2990,10 @@ export interface DataFlow {
      * A summary of the system's data flow.
      */
     description: string;
-    diagrams?: Diagram[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    diagrams?:   Diagram[];
+    links?:      Link[];
+    props?:      Property[];
+    remarks?:    string;
 }
 
 /**
@@ -3005,10 +3005,10 @@ export interface NetworkArchitecture {
      * A summary of the system's network architecture.
      */
     description: string;
-    diagrams?: Diagram[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
+    diagrams?:   Diagram[];
+    links?:      Link[];
+    props?:      Property[];
+    remarks?:    string;
 }
 
 /**
@@ -3061,8 +3061,8 @@ export enum FluffyState {
  */
 export interface SystemInformation {
     informationTypes: InformationType[];
-    links?: Link[];
-    props?: Property[];
+    links?:           Link[];
+    props?:           Property[];
 }
 
 /**
@@ -3075,7 +3075,7 @@ export interface InformationType {
      * described information or the information system.
      */
     availabilityImpact: AvailabilityImpactLevel;
-    categorizations?: InformationTypeCategorization[];
+    categorizations?:   InformationTypeCategorization[];
     /**
      * The expected level of impact resulting from the unauthorized disclosure of the described
      * information.
@@ -3090,8 +3090,8 @@ export interface InformationType {
      * described information.
      */
     integrityImpact: IntegrityImpactLevel;
-    links?: Link[];
-    props?: Property[];
+    links?:          Link[];
+    props?:          Property[];
     /**
      * A human readable name for the information type. This title should be meaningful within
      * the context of the system.
@@ -3114,10 +3114,10 @@ export interface InformationType {
  */
 export interface AvailabilityImpactLevel {
     adjustmentJustification?: string;
-    base: string;
-    links?: Link[];
-    props?: Property[];
-    selected?: string;
+    base:                     string;
+    links?:                   Link[];
+    props?:                   Property[];
+    selected?:                string;
 }
 
 /**
@@ -3138,10 +3138,10 @@ export interface InformationTypeCategorization {
  */
 export interface ConfidentialityImpactLevel {
     adjustmentJustification?: string;
-    base: string;
-    links?: Link[];
-    props?: Property[];
-    selected?: string;
+    base:                     string;
+    links?:                   Link[];
+    props?:                   Property[];
+    selected?:                string;
 }
 
 /**
@@ -3150,23 +3150,23 @@ export interface ConfidentialityImpactLevel {
  */
 export interface IntegrityImpactLevel {
     adjustmentJustification?: string;
-    base: string;
-    links?: Link[];
-    props?: Property[];
-    selected?: string;
+    base:                     string;
+    links?:                   Link[];
+    props?:                   Property[];
+    selected?:                string;
 }
 
 /**
  * Provides information as to how the system is implemented.
  */
 export interface SystemImplementation {
-    components: AssessmentAssetsComponent[];
-    inventoryItems?: InventoryItem[];
+    components:               AssessmentAssetsComponent[];
+    inventoryItems?:          InventoryItem[];
     leveragedAuthorizations?: LeveragedAuthorization[];
-    links?: Link[];
-    props?: Property[];
-    remarks?: string;
-    users: SystemUser[];
+    links?:                   Link[];
+    props?:                   Property[];
+    remarks?:                 string;
+    users:                    SystemUser[];
 }
 
 /**
@@ -3176,13 +3176,13 @@ export interface SystemImplementation {
  */
 export interface LeveragedAuthorization {
     dateAuthorized: string;
-    links?: Link[];
+    links?:         Link[];
     /**
      * A machine-oriented identifier reference to the party that manages the leveraged system.
      */
     partyUUID: string;
-    props?: Property[];
-    remarks?: string;
+    props?:    Property[];
+    remarks?:  string;
     /**
      * A human readable name for the leveraged authorization in the context of the system.
      */
@@ -3214,7 +3214,7 @@ function invalidValue(typ: any, val: any, key: any = ''): never {
     if (key) {
         throw Error(`Invalid value for key "${key}". Expected type ${JSON.stringify(typ)} but got ${JSON.stringify(val)}`);
     }
-    throw Error(`Invalid value ${JSON.stringify(val)} for type ${JSON.stringify(typ)}`,);
+    throw Error(`Invalid value ${JSON.stringify(val)} for type ${JSON.stringify(typ)}`, );
 }
 
 function jsonToJSProps(typ: any): any {
@@ -3248,7 +3248,7 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
             const typ = typs[i];
             try {
                 return transform(val, typ, getProps);
-            } catch (_) { }
+            } catch (_) {}
         }
         return invalidValue(typs, val);
     }
@@ -3305,9 +3305,9 @@ function transform(val: any, typ: any, getProps: any, key: any = ''): any {
     if (Array.isArray(typ)) return transformEnum(typ, val);
     if (typeof typ === "object") {
         return typ.hasOwnProperty("unionMembers") ? transformUnion(typ.unionMembers, val)
-            : typ.hasOwnProperty("arrayItems") ? transformArray(typ.arrayItems, val)
-                : typ.hasOwnProperty("props") ? transformObject(getProps(typ), typ.additional, val)
-                    : invalidValue(typ, val);
+            : typ.hasOwnProperty("arrayItems")    ? transformArray(typ.arrayItems, val)
+            : typ.hasOwnProperty("props")         ? transformObject(getProps(typ), typ.additional, val)
+            : invalidValue(typ, val);
     }
     // Numbers can be parsed by Date but shouldn't be.
     if (typ === Date && typeof val !== "number") return transformDate(val);
@@ -4532,3 +4532,4 @@ const typeMap: any = {
         "under-major-modification",
     ],
 };
+
